@@ -1,0 +1,16 @@
+[build]
+  functions = "netlify/functions"
+  publish = "public"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
+  headers = { Access-Control-Allow-Origin = "*" }
+[functions]
+  included_files = ["controllers/**"]
+[[headers]]
+  for = "/*"
+[headers.values]
+  Access-Control-Allow-Origin = "http://localhost:3000"
+  Access-Control-Allow-Credentials = "true"
