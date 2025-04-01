@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Servo Control</title>
+</head>
+<body>
+    <h1>Control Servo from Web</h1>
+
+    <button id="leftBtn">Move Left</button>
+    <button id="rightBtn">Move Right</button>
+
+    <script>
+        // Function to send a command to the backend or ESP32
+        function sendCommand(command) {
+            fetch('http://localhost:3000/sendCommand', { // Backend route
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ command })
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);  // Log server response
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Add event listeners for the buttons
+        document.getElementById('leftBtn').addEventListener('click', () => {
+            console.log("left");
+            sendCommand('left');
+        });
+
+        document.getElementById('rightBtn').addEventListener('click', () => {
+            console.log("right");
+            sendCommand('right');
+        });
+    </script>
+</body>
+</html>
